@@ -10,17 +10,17 @@ echo "====================================="
 echo "🚀 Iniciando projeto"
 echo "====================================="
 
-# =========================
-# 🔴 MATAR PROCESSOS ANTIGOS
-# =========================
+
+# MATAR PROCESSOS ANTIGOS
+
 echo "🛑 Encerrando processos antigos..."
 
 fuser -k 8000/tcp 2>/dev/null || true
 fuser -k 5173/tcp 2>/dev/null || true
 
-# =========================
-# 🐍 BACKEND
-# =========================
+
+# BACKEND
+
 cd "$BACKEND_DIR"
 
 echo "📦 Preparando ambiente Python..."
@@ -62,9 +62,9 @@ else
     DOCS_STATUS="⚠️ não respondeu ainda"
 fi
 
-# =========================
-# ⚛️ FRONTEND
-# =========================
+
+# FRONTEND
+
 cd "$FRONTEND_DIR"
 
 echo "📦 Instalando dependências frontend..."
@@ -77,9 +77,6 @@ nohup npm run dev -- --host 0.0.0.0 --port 5173 \
 
 FRONTEND_PID=$!
 
-# =========================
-# ✅ FINAL
-# =========================
 cd "$BASE_DIR"
 
 echo "====================================="

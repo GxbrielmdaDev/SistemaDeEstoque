@@ -1,11 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from database.connection import Base 
 from pydantic import BaseModel
-
-Base = declarative_base()
 
 class Client(Base):
     __tablename__ = "clients"
+
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String, nullable=False)
     cpf_cnpj = Column(String, nullable=False)
@@ -19,7 +18,7 @@ class ClientCreate(BaseModel):
     estado: str
 
 class ClientUpdate(BaseModel):
-    nome: str = None
-    cpf_cnpj: str = None
-    cidade: str = None
-    estado: str = None
+    nome: str | None = None
+    cpf_cnpj: str | None = None
+    cidade: str | None = None
+    estado: str | None = None

@@ -1,13 +1,14 @@
 from sqlalchemy import Column, Integer, Float, DateTime, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from pydantic import BaseModel
+from database.connection import Base
 from datetime import datetime
-
-Base = declarative_base()
+from pydantic import BaseModel
+from models.product import Product
+from models.client import Client
 
 class Sale(Base):
     __tablename__ = "sales"
+
     id = Column(Integer, primary_key=True, index=True)
     produto_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     cliente_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
@@ -16,8 +17,8 @@ class Sale(Base):
     lucro = Column(Float, nullable=False)
     data = Column(DateTime, default=datetime.utcnow)
 
-    produto = relationship("Product")
-    cliente = relationship("Client")
+    produto = relationship(Product)
+    cliente = relationship(Client)
 
 class SaleCreate(BaseModel):
     produto_id: int
@@ -27,6 +28,6 @@ class SaleCreate(BaseModel):
     lucro: float
 
 class SaleUpdate(BaseModel):
-    quantidade: int = None
-    valor_total: float = None
-    lucro: float = None
+    quantidade: int | None = None
+    valor_total: float | None = None
+    lucro: float | None = None

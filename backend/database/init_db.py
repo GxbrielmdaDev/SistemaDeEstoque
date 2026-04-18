@@ -1,8 +1,10 @@
-from models.product import Base as ProductBase
-from models.client import Base as ClientBase
-from models.sale import Base as SaleBase
-from database.connection import engine
+from database.connection import engine, Base
+from models.product import Product
+from models.client import Client
+from models.sale import Sale
 
-ProductBase.metadata.create_all(bind=engine)
-ClientBase.metadata.create_all(bind=engine)
-SaleBase.metadata.create_all(bind=engine)
+def init_db():
+    Base.metadata.create_all(bind=engine)
+
+if __name__ == "__main__":
+    init_db()
