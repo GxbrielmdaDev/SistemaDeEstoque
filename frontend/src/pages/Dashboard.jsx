@@ -1,25 +1,36 @@
 import { useEffect, useState } from 'react'
-import { listProducts, listSales, listClients } from '../services/api'
+import { listProducts, listSales, listClients, getProfitLossData, getProductsByCategory } from '../services/api'
+import { ProfitLossChart, ProductsByCategoryChart } from '../components/Charts'
 
 export default function Dashboard() {
   const [products, setProducts] = useState([])
   const [sales, setSales] = useState([])
   const [clients, setClients] = useState([])
+  const [profitLossData, setProfitLossData] = useState(null)
+  const [categoryData, setCategoryData] = useState([])
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [productsData, salesData, clientsData] = await Promise.all([
+        setLoading(true)
+        const [productsData, salesData, clientsData, profitData, categoryProductsData] = await Promise.all([
           listProducts(),
           listSales(),
           listClients(),
+          getProfitLossData(),
+          getProductsByCategory(),
         ])
         setProducts(productsData)
         setSales(salesData)
         setClients(clientsData)
+        setProfitLossData(profitData)
+        setCategoryData(categoryProductsData)
       } catch (err) {
         setError(err.message)
+      } finally {
+        setLoading(false)
       }
     }
     loadData()
@@ -81,6 +92,33 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      <div className="charts-section">
+        <div className="chart-panel">
+          <h2>Lucro vs Prejuízo</h2>
+          <p style={{ color: '#d0d0d0', marginBottom: 18 }}>
+            Análise visual do desempenho financeiro total do sistema.
+          </p>
+          {loading ? (
+            <p style={{ textAlign: 'center', color: '#b9b9b9' }}>Carregando dados...</p>
+          ) : (
+            <ProfitLossChart data={profitLossData} />
+          )}
+        </div>
+
+        <div className="chart-panel">
+          <h2>Produtos por Categoria</h2>
+          <p style={{ color: '#d0d0d0', marginBottom: 18 }}>
+            Distribuição de produtos cadastrados por categoria.
+          </p>
+          {loading ? (
+            <p style={{ textAlign: 'center', color: '#b9b9b9' }}>Carregando dados...</p>
+          ) : (
+            <ProductsByCategoryChart data={categoryData} />
+          )}
+        </div>
+      </div>
+
       {error && <div className="alert">{error}</div>}
     </div>
   )

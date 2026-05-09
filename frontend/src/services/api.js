@@ -51,3 +51,7 @@ export const deleteClient = (id) =>
 export const listSales = () => request('/sales')
 export const createSale = (sale) =>
   request('/sales', { method: 'POST', body: JSON.stringify(sale) })
+
+// Analytics
+export const getProfitLossData = () => request('/sales/analytics/profit-loss')
+export const getProductsByCategory = () => request('/sales/analytics/products-by-category')
