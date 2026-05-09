@@ -5,10 +5,10 @@
 
 .category-input {
   width: 100%;
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color-light);
   border-radius: 12px;
-  color: #f1f1f1;
+  color: var(--text-primary);
   padding: 12px 14px;
   font-size: 1rem;
   transition: all 0.2s ease;
@@ -17,8 +17,8 @@
 
 .category-input:focus {
   outline: none;
-  border-color: rgba(255, 46, 46, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 46, 46, 0.1);
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .category-dropdown {
@@ -26,14 +26,15 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color-light);
   border-radius: 12px;
   margin-top: 8px;
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
 }
 
 .category-option {
@@ -43,7 +44,7 @@
   align-items: center;
   gap: 8px;
   transition: background 0.15s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .category-option:last-child {
@@ -51,43 +52,48 @@
 }
 
 .category-option:hover {
-  background: rgba(255, 46, 46, 0.1);
+  background: rgba(37, 99, 235, 0.1);
 }
 
 .category-option-text {
-  color: #d0d0d0;
+  color: var(--text-secondary);
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .category-option-new {
-  background: rgba(255, 46, 46, 0.05);
-  color: #ff9999;
+  background: rgba(37, 99, 235, 0.05);
+  color: var(--primary-light);
+  transition: background 0.3s ease;
 }
 
 .category-option-new:hover {
-  background: rgba(255, 46, 46, 0.15);
+  background: rgba(37, 99, 235, 0.15);
 }
 
 .category-option-icon {
-  color: #ff2e2e;
+  color: var(--primary-color);
   font-weight: bold;
   font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.3s ease;
 }
 
 .category-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--border-color);
   margin: 4px 0;
+  transition: background 0.3s ease;
 }
 
 .category-no-results {
   padding: 16px;
   text-align: center;
-  color: #888;
+  color: var(--text-tertiary);
   font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 /* Scrollbar customizado */
@@ -96,17 +102,18 @@
 }
 
 .category-dropdown::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-secondary);
   border-radius: 10px;
 }
 
 .category-dropdown::-webkit-scrollbar-thumb {
-  background: rgba(255, 46, 46, 0.3);
+  background: rgba(37, 99, 235, 0.3);
   border-radius: 10px;
+  transition: background 0.3s ease;
 }
 
 .category-dropdown::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 46, 46, 0.5);
+  background: rgba(37, 99, 235, 0.5);
 }
 
 /* Responsividade */

@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { useTheme } from '../contexts/ThemeContext'
 import './Layout.css'
 
 const menuItems = [
@@ -9,6 +10,8 @@ const menuItems = [
 ]
 
 export default function Layout() {
+  const { isDark, toggleTheme } = useTheme()
+
   return (
     <div className="app-layout">
       <aside className="sidebar">
@@ -26,6 +29,9 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
+        <button className="theme-toggle" onClick={toggleTheme} title={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}>
+          {isDark ? '☀️' : '🌙'}
+        </button>
       </aside>
       <main className="content">
         <Outlet />

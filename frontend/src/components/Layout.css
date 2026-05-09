@@ -1,3 +1,101 @@
 .sidebar {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-toggle {
+  margin-top: auto;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 46, 46, 0.1);
+  border-color: rgba(255, 46, 46, 0.3);
+}
+
+/* ==================== DARK THEME (DEFAULT) ==================== */
+body.dark-theme,
+body:not(.light-theme) {
+  --primary-color: #ff2e2e;
+  --primary-light: #ff6b6b;
+  --primary-dark: #dc2626;
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1f1f1f;
+  --bg-tertiary: #171717;
+  --bg-hover: #2e2e2e;
+  --text-primary: #ffffff;
+  --text-secondary: #d0d0d0;
+  --text-tertiary: #b9b9b9;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-light: rgba(255, 255, 255, 0.12);
+}
+
+/* ==================== LIGHT THEME ==================== */
+body.light-theme {
+  --primary-color: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-dark: #1d4ed8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-tertiary: #e5e7eb;
+  --bg-hover: #d1d5db;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-tertiary: #6b7280;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --border-color-light: rgba(0, 0, 0, 0.12);
+}
+
+/* Aplicar variáveis CSS globais */
+.app-shell {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app-layout {
+  background: var(--bg-primary);
+}
+
+.sidebar {
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+}
+
+.brand-title {
+  color: var(--text-primary);
+}
+
+.brand-dot {
+  background: var(--primary-color);
+}
+
+.menu a {
+  color: var(--text-primary);
+  transition: background 0.2s ease;
+}
+
+.menu a:hover,
+.menu a.active {
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.menu a.active {
+  border: 1px solid var(--primary-color);
+}
+
+.content {
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
