@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { listProducts, createProduct, updateProduct, deleteProduct } from '../services/api'
+import { listProducts, createProduct, updateProduct, deleteProduct, getCategories } from '../services/api'
+import CategoryAutocomplete from '../components/CategoryAutocomplete'
 
 const emptyForm = {
   nome: '',
@@ -12,6 +13,7 @@ const emptyForm = {
 
 export default function Products() {
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [formValues, setFormValues] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
   const [error, setError] = useState('')
@@ -19,6 +21,7 @@ export default function Products() {
 
   useEffect(() => {
     loadProducts()
+    loadCategories()
   }, [])
 
   const loadProducts = async () => {
@@ -26,6 +29,16 @@ export default function Products() {
       setProducts(await listProducts())
     } catch (err) {
       setError(err.message)
+    }
+  }
+
+  const loadCategories = async () => {
+    try {
+      const cats = await getCategories()
+      setCategories(cats)
+    } catch (err) {
+      // Se houver erro, apenas iniciar com array vazio
+      console.warn('Erro ao carregar categorias:', err.message)
     }
   }
 
@@ -50,6 +63,7 @@ export default function Products() {
       setFormValues(emptyForm)
       setEditingId(null)
       loadProducts()
+      loadCategories()
     } catch (err) {
       setError(err.message)
     }
@@ -73,6 +87,7 @@ export default function Products() {
     try {
       await deleteProduct(id)
       loadProducts()
+      loadCategories()
       setSuccess('Produto excluído com sucesso.')
     } catch (err) {
       setError(err.message)
@@ -104,11 +119,10 @@ export default function Products() {
           </label>
           <label>
             Categoria
-            <input
-              type="text"
+            <CategoryAutocomplete
               value={formValues.categoria}
-              onChange={(e) => setFormValues({ ...formValues, categoria: e.target.value })}
-              required
+              onChange={(newCategory) => setFormValues({ ...formValues, categoria: newCategory })}
+              categories={categories}
             />
           </label>
           <label>

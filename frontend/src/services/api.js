@@ -37,6 +37,7 @@ export const updateProduct = (id, product) =>
   request(`/products/${id}`, { method: 'PUT', body: JSON.stringify(product) })
 export const deleteProduct = (id) =>
   request(`/products/${id}`, { method: 'DELETE' })
+export const getCategories = () => request('/products/categories/list')
 
 // Clientes
 export const listClients = () => request('/clients')

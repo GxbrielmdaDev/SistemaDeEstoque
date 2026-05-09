@@ -1,9 +1,22 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func, distinct
 from models.product import Product, ProductCreate, ProductUpdate
 from database.connection import get_db
 
 router = APIRouter(prefix="/products", tags=["products"])
+
+@router.get("/categories/list")
+def get_categories(db: Session = Depends(get_db)):
+    """
+    Retorna todas as categorias de produtos já cadastradas.
+    """
+    categories = db.query(distinct(Product.categoria)).filter(
+        Product.categoria.isnot(None),
+        Product.categoria != ''
+    ).order_by(Product.categoria).all()
+    
+    return [cat[0] for cat in categories]
 
 @router.get("/")
 def list_products(db: Session = Depends(get_db)):

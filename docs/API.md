@@ -23,6 +23,24 @@ API RESTful desenvolvida com FastAPI para gerenciamento de estoque, clientes e v
 
 ## 📦 Produtos
 
+### ➤ Listar Categorias
+
+**GET** `/products/categories/list`
+
+**Resposta:**
+```json
+[
+  "Eletrônicos",
+  "Acessórios",
+  "Peças",
+  "Manutenção"
+]
+```
+
+**Descrição:** Retorna todas as categorias de produtos já cadastradas no sistema. Utilizado no autocomplete do formulário de produtos.
+
+---
+
 ### ➤ Listar Produtos
 
 **GET** `/products`
