@@ -45,7 +45,7 @@ export default function Dashboard() {
       <div className="header">
         <div>
           <h1 className="page-title">Dashboard</h1>
-          <p style={{ color: '#b9b9b9', margin: '6px 0 0' }}>
+          <p style={{ color: 'var(--text-secondary)', margin: '6px 0 0' }}>
             Visão geral do estoque e vendas.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
       <div className="panel">
         <h2>Resumo de operações</h2>
-        <p style={{ color: '#d0d0d0', marginBottom: 18 }}>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: 18 }}>
           Acompanhe o inventário, vendas e clientes cadastrados no mesmo lugar.
         </p>
         <div style={{ display: 'grid', gap: '16px' }}>
@@ -96,11 +96,11 @@ export default function Dashboard() {
       <div className="charts-section">
         <div className="chart-panel">
           <h2>Lucro vs Prejuízo</h2>
-          <p style={{ color: '#d0d0d0', marginBottom: 18 }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: 18 }}>
             Análise visual do desempenho financeiro total do sistema.
           </p>
           {loading ? (
-            <p style={{ textAlign: 'center', color: '#b9b9b9' }}>Carregando dados...</p>
+            <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Carregando dados...</p>
           ) : (
             <ProfitLossChart data={profitLossData} />
           )}
@@ -108,11 +108,11 @@ export default function Dashboard() {
 
         <div className="chart-panel">
           <h2>Produtos por Categoria</h2>
-          <p style={{ color: '#d0d0d0', marginBottom: 18 }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: 18 }}>
             Distribuição de produtos cadastrados por categoria.
           </p>
           {loading ? (
-            <p style={{ textAlign: 'center', color: '#b9b9b9' }}>Carregando dados...</p>
+            <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Carregando dados...</p>
           ) : (
             <ProductsByCategoryChart data={categoryData} />
           )}

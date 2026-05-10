@@ -19,7 +19,7 @@ export default function Layout() {
           <span className="brand-dot" />
           <div>
             <div className="brand-title">Autopeças Gerencial</div>
-            <div style={{ fontSize: '0.75rem', color: '#a8a8a8' }}>Painel de Controle</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Painel de Controle</div>
           </div>
         </div>
         <nav className="menu">

@@ -99,7 +99,7 @@ export default function Products() {
       <div className="header">
         <div>
           <h1 className="page-title">Produtos</h1>
-          <p style={{ color: '#b9b9b9', marginTop: 6 }}>
+          <p style={{ color: 'var(--text-secondary)', marginTop: 6 }}>
             Cadastro e gerenciamento de peças no estoque.
           </p>
         </div>
@@ -167,8 +167,8 @@ export default function Products() {
           </button>
         </form>
         {(error || success) && (
-          <div className="alert" style={{ color: success ? '#8afc98' : '' }}>
-            {error || success}
+          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? 'rgba(255, 110, 107, 0.1)' : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
+            <span style={{ color: success ? 'var(--success-text)' : '' }}>{error || success}</span>
           </div>
         )}
       </div>
@@ -207,7 +207,7 @@ export default function Products() {
               ))}
               {products.length === 0 && (
                 <tr>
-                  <td colSpan="6" style={{ padding: '18px 12px', color: '#aaa' }}>
+                  <td colSpan="6" style={{ padding: '18px 12px', color: 'var(--text-tertiary)' }}>
                     Nenhum produto cadastrado.
                   </td>
                 </tr>

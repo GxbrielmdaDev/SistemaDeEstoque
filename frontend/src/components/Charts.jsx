@@ -1,13 +1,15 @@
 import { Pie, Bar } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js'
+import { useTheme } from '../contexts/ThemeContext'
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title)
 
 export function ProfitLossChart({ data }) {
+  const { isDark } = useTheme()
   if (!data || (data.lucro === 0 && data.prejuizo === 0)) {
     return (
       <div className="chart-container">
-        <p style={{ textAlign: 'center', color: '#b9b9b9', padding: '20px' }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '20px' }}>
           Nenhum dado de lucro/prejuízo disponível
         </p>
       </div>
@@ -37,7 +39,7 @@ export function ProfitLossChart({ data }) {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#d0d0d0',
+          color: isDark ? '#ffffff' : 'var(--text-secondary)',
           font: { size: 12 },
           padding: 15,
         },
@@ -61,10 +63,11 @@ export function ProfitLossChart({ data }) {
 }
 
 export function ProductsByCategoryChart({ data }) {
+  const { isDark } = useTheme()
   if (!data || data.length === 0) {
     return (
       <div className="chart-container">
-        <p style={{ textAlign: 'center', color: '#b9b9b9', padding: '20px' }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '20px' }}>
           Nenhum dado de categorias disponível
         </p>
       </div>
@@ -87,7 +90,7 @@ export function ProductsByCategoryChart({ data }) {
           '#06b6d4',
           '#14b8a6',
         ],
-        borderColor: '#1f2937',
+        borderColor: isDark ? '#ffffff' : '#1f2937',
         borderWidth: 2,
         hoverBackgroundColor: '#fbbf24',
       },
@@ -103,7 +106,7 @@ export function ProductsByCategoryChart({ data }) {
         display: true,
         position: 'top',
         labels: {
-          color: '#d0d0d0',
+          color: isDark ? '#ffffff' : 'var(--text-secondary)',
           font: { size: 12 },
           padding: 15,
         },
@@ -111,26 +114,26 @@ export function ProductsByCategoryChart({ data }) {
       title: {
         display: true,
         text: 'Produtos por Categoria',
-        color: '#d0d0d0',
+        color: isDark ? '#ffffff' : 'var(--text-secondary)',
         font: { size: 14, weight: 'bold' },
       },
     },
     scales: {
       x: {
         ticks: {
-          color: '#b9b9b9',
+          color: isDark ? '#ffffff' : 'var(--text-secondary)',
           stepSize: 1,
         },
         grid: {
-          color: '#374151',
+          color: isDark ? '#ffffff' : 'var(--border-color)',
         },
       },
       y: {
         ticks: {
-          color: '#b9b9b9',
+          color: isDark ? '#ffffff' : 'var(--text-secondary)',
         },
         grid: {
-          color: '#374151',
+          color: isDark ? '#ffffff' : 'var(--border-color)',
         },
       },
     },
