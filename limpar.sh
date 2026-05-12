@@ -22,4 +22,8 @@ find . -type f -name "*.log" -delete
 echo "Removendo arquivos temporários..."
 find . -type f -name "*.tmp" -delete
 
+echo "Removendo Bin/Obj do C#..."
+rm -rf relatorio-service/bin
+rm -rf relatorio-service/obj
+
 echo "✅ Limpeza concluída!"

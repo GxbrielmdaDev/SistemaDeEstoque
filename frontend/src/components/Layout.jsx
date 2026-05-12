@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTheme } from '../contexts/ThemeContext'
+import { useState } from 'react'
+import RelatoryModal from './RelatoryModal'
 import './Layout.css'
 import logo from '../../assets/Atlas-Control-logo.png'
 
@@ -12,6 +14,7 @@ const menuItems = [
 
 export default function Layout() {
   const { isDark, toggleTheme } = useTheme()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <div className="app-layout">
@@ -30,9 +33,17 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
+        <button 
+          className="relatory-button"
+          onClick={() => setIsModalOpen(true)}
+          title="Gerar Relatórios"
+        >
+           Relatório
+        </button>
         <button className="theme-toggle" onClick={toggleTheme} title={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}>
           {isDark ? '☀️' : '🌙'}
         </button>
+        <RelatoryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </aside>
       <main className="content">
         <Outlet />
