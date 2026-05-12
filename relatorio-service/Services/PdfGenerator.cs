@@ -7,7 +7,7 @@ namespace RelatorioService.Services;
 
 public class PdfGenerator
 {
-    public byte[] GerarRelatorio(string secao, List<Dictionary<string, object>> dados)
+    public byte[] GerarRelatorio(string secao, List<Dictionary<string, string>> dados)
     {
         using (var memoryStream = new MemoryStream())
         {
@@ -25,15 +25,25 @@ public class PdfGenerator
 
             document.Add(new Paragraph(""));
 
-            // Tabela
-            var table = new Table(dados.FirstOrDefault()?.Keys.Count ?? 1);
-
-            // Headers
-            if (dados.Any())
+            if (dados.Count == 0)
             {
+                document.Add(new Paragraph("Nenhum dado disponível para esta seção.")
+                    .SetFontSize(12));
+            }
+            else
+            {
+                // Tabela com largura automática
+                var colCount = dados.First().Keys.Count;
+                var table = new Table(colCount);
+                table.SetWidth(iText.Layout.Properties.UnitValue.CreatePercentValue(100));
+
+                // Headers
                 foreach (var header in dados.First().Keys)
                 {
-                    table.AddHeaderCell(new Cell().Add(new Paragraph(header).SetBold()));
+                    var headerCell = new Cell()
+                        .Add(new Paragraph(header).SetBold())
+                        .SetBackgroundColor(new iText.Kernel.Colors.DeviceGray(0.8f));
+                    table.AddHeaderCell(headerCell);
                 }
 
                 // Dados
@@ -41,12 +51,18 @@ public class PdfGenerator
                 {
                     foreach (var value in row.Values)
                     {
-                        table.AddCell(new Cell().Add(new Paragraph(value?.ToString() ?? "")));
+                        var text = !string.IsNullOrEmpty(value) ? value : "-";
+                        // Trunca textos muito longos
+                        if (text.Length > 100)
+                            text = text.Substring(0, 97) + "...";
+
+                        table.AddCell(new Cell().Add(new Paragraph(text)));
                     }
                 }
+
+                document.Add(table);
             }
 
-            document.Add(table);
             document.Close();
 
             return memoryStream.ToArray();
@@ -58,7 +74,4 @@ public class RelatorioRequest
 {
     [JsonPropertyName("secao")]
     public string Secao { get; set; } = "";
-
-    [JsonPropertyName("dados")]
-    public List<Dictionary<string, object>> Dados { get; set; } = new();
 }

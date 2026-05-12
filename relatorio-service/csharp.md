@@ -4,7 +4,7 @@ Serviço backend em C# para geração de relatórios em PDF.
 
 ## Requisitos
 
-- .NET 10.0 SDK o
+- .NET 10.0 SDK 
 - Backend Python rodando na porta 8000
 
 ## Instalação

@@ -1,4 +1,4 @@
-# ESTOQUEPIM - Sistema de Gestão de Estoque
+# ATLAS CONTROL - Sistema de Gestão de Estoque
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com)
@@ -27,7 +27,7 @@ Sistema completo de gestão de estoque desenvolvido para otimizar o controle de 
 
 ## 🎯 Sobre o Projeto
 
-O **ESTOQUEPIM** é uma solução moderna e intuitiva para gerenciamento de estoque, com foco em **usabilidade, performance e escalabilidade**.
+O **ATLAS CONTROL** é uma solução moderna e intuitiva para gerenciamento de estoque, com foco em **usabilidade, performance e escalabilidade**.
 
 A aplicação permite o controle completo do ciclo de vendas, desde o cadastro de produtos até a geração de relatórios financeiros.
 

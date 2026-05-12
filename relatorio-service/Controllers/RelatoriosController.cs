@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RelatorioService.Services;
-using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace RelatorioService.Controllers;
 
@@ -32,22 +32,81 @@ public class RelatoriosController : ControllerBase
         }
     }
 
-    private async Task<List<Dictionary<string, object>>> BuscarDados(string secao)
+    private async Task<List<Dictionary<string, string>>> BuscarDados(string secao)
     {
         var endpoint = secao.ToLower() switch
         {
-            "produtos" => "/api/produtos",
-            "clientes" => "/api/clientes",
-            "vendas" => "/api/vendas",
+            "produtos" => "/products",
+            "clientes" => "/clients",
+            "vendas" => "/sales",
             _ => throw new Exception("Seção inválida")
         };
 
         var response = await _httpClient.GetAsync(endpoint);
+        response.EnsureSuccessStatusCode();
+        
         var json = await response.Content.ReadAsStringAsync();
+        var items = new List<Dictionary<string, string>>();
 
-        var items = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json) 
-            ?? new List<Dictionary<string, object>>();
+        using (var doc = JsonDocument.Parse(json))
+        {
+            var root = doc.RootElement;
+
+            // Se é um array direto
+            if (root.ValueKind == JsonValueKind.Array)
+            {
+                items = ConvertJsonArrayToDictList(root);
+            }
+            // Se é um objeto com propriedade "data" ou similar
+            else if (root.ValueKind == JsonValueKind.Object)
+            {
+                // Tenta encontrar a propriedade que contém os dados
+                foreach (var property in root.EnumerateObject())
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Array)
+                    {
+                        items = ConvertJsonArrayToDictList(property.Value);
+                        break;
+                    }
+                }
+            }
+        }
 
         return items;
+    }
+
+    private List<Dictionary<string, string>> ConvertJsonArrayToDictList(JsonElement array)
+    {
+        var result = new List<Dictionary<string, string>>();
+
+        foreach (var item in array.EnumerateArray())
+        {
+            var dict = new Dictionary<string, string>();
+
+            if (item.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var property in item.EnumerateObject())
+                {
+                    var value = property.Value.ValueKind switch
+                    {
+                        JsonValueKind.String => property.Value.GetString() ?? "",
+                        JsonValueKind.Number => property.Value.GetDecimal().ToString(),
+                        JsonValueKind.True => "true",
+                        JsonValueKind.False => "false",
+                        JsonValueKind.Null => "-",
+                        _ => property.Value.ToString()
+                    };
+
+                    dict[property.Name] = value;
+                }
+            }
+
+            if (dict.Any())
+            {
+                result.Add(dict);
+            }
+        }
+
+        return result;
     }
 }
