@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../services/api'
 import './Login.css'
+import logo from '../assets/Atlas-Control-logo.png'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -26,10 +27,10 @@ export default function Login() {
     <div className="login-shell">
       <div className="login-card">
         <div className="login-brand">
-          <span />
+          <img src={logo} alt="ATLAS CONTROL Logo" className="login-logo" />
           <div>
-            <strong>Sistema de Estoque</strong>
-            <p>Autopeças - Acesso seguro</p>
+            <strong>ATLAS CONTROL</strong>
+            <p>Gestão de Estoque - Acesso seguro</p>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="login-form">

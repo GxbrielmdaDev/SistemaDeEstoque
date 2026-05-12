@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTheme } from '../contexts/ThemeContext'
 import './Layout.css'
+import logo from '../../assets/Atlas-Control-logo.png'
 
 const menuItems = [
   { label: 'Dashboard', path: '/dashboard' },
@@ -16,10 +17,10 @@ export default function Layout() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand-dot" />
+          <img src={logo} alt="ATLAS CONTROL Logo" className="brand-logo" />
           <div>
-            <div className="brand-title">Autopeças Gerencial</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Painel de Controle</div>
+            <div className="brand-title">ATLAS CONTROL</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Gestão de Estoque</div>
           </div>
         </div>
         <nav className="menu">
