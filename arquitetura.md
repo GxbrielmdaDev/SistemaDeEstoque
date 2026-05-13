@@ -1,10 +1,10 @@
-# Sistema de Gestão de Estoque para Autopeças
+# 🏗️ ATLAS CONTROL - Arquitetura do Sistema
 
 ## Sobre o Projeto
 
-Este projeto consiste em um sistema completo de **gestão de estoque para autopeças**, desenvolvido com o objetivo de facilitar o controle de produtos, clientes e vendas, além de fornecer métricas importantes para tomada de decisão.
+Este projeto consiste em um **sistema completo e moderno de gestão de estoque**, desenvolvido com o objetivo de facilitar o controle eficiente de produtos, clientes e vendas, além de fornecer métricas e insights importantes para tomada de decisão estratégica.
 
-A aplicação possui uma interface moderna, responsiva e intuitiva, permitindo o uso tanto em desktop quanto em dispositivos móveis.
+A aplicação possui uma interface moderna, responsiva e intuitiva, permitindo o uso tanto em desktop quanto em dispositivos móveis, com alto desempenho e segurança.
 
 ---
 
@@ -39,153 +39,359 @@ A aplicação possui uma interface moderna, responsiva e intuitiva, permitindo o
 
 ---
 
-## strutura do Projeto
+## Estrutura do Projeto
 
 ```
-autopecas-estoque/
+EstoquePIM/
 │
-├── backend/
-│   ├── app.py
-│   ├── routes/
-│   ├── models/
+├── backend/                      # API REST (FastAPI)
+│   ├── app.py                    # Aplicação principal
+│   ├── requirements.txt          # Dependências Python
+│   │
 │   ├── database/
-│   └── requirements.txt
+│   │   ├── connection.py         # Conexão e configuração do BD
+│   │   └── init_db.py            # Inicialização das tabelas
+│   │
+│   ├── models/
+│   │   ├── client.py             # Modelo de Cliente
+│   │   ├── product.py            # Modelo de Produto
+│   │   └── sale.py               # Modelo de Venda
+│   │
+│   └── routes/
+│       ├── auth.py               # Autenticação
+│       ├── clients.py            # Endpoints de clientes
+│       ├── products.py           # Endpoints de produtos
+│       └── sales.py              # Endpoints de vendas
 │
-├── frontend/
+├── frontend/                     # Interface React
 │   ├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── main.jsx
+│   │   ├── components/           # Componentes reutilizáveis
+│   │   ├── pages/                # Páginas da aplicação
+│   │   ├── services/             # Serviços de API
+│   │   ├── contexts/             # Contextos React
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── assets/                   # Recursos estáticos
+│   ├── package.json
+│   ├── vite.config.js
+│   └── index.html
 │
+├── relatorio-service/            # Microserviço de Relatórios (.NET/C#)
+│   ├── Program.cs
+│   ├── appsettings.json
+│   ├── Controllers/
+│   └── Services/
+│
+├── docs/                         # Documentação
+│   ├── API.md
+│   ├── BancoDeDados.md
+│   └── GRAFICOS.md
+│
+├── arquitetura.md
+├── iniciar.sh
+├── limpar.sh
 └── README.md
 ```
 
 ---
 
-## Funcionalidades
+## Funcionalidades Principais
 
-### Dashboard
+### 📊 Dashboard
 
-Página inicial com visão geral do sistema:
+Página inicial com visão geral completa do sistema:
 
-* Total de produtos cadastrados
-* Quantidade em estoque
-* Total de vendas
-* Lucro total
-* Gráficos de desempenho (vendas, estoque, etc.)
+* **Métricas Principais (KPIs)**
+  * Total de produtos cadastrados
+  * Quantidade total em estoque
+  * Total de vendas do período
+  * Lucro bruto e líquido
+  * Margem de lucro
+
+* **Visualizações**
+  * Gráficos de desempenho (vendas por período)
+  * Gráficos de estoque por categoria
+  * Alertas de produtos com baixo estoque
+  * Produtos mais vendidos
 
 ---
 
-### Produtos
+### 📦 Produtos
 
-Gerenciamento completo de produtos:
+Gerenciamento completo do catálogo de produtos:
 
-**Campos do cadastro:**
+**Campos do Cadastro:**
 
-* Nome
+* Nome do produto
 * Categoria
+* SKU/Código
 * Quantidade em estoque
-* Valor de venda
-* Valor de compra/produção
+* Preço de custo
+* Preço de venda
+* Margem de lucro (automática)
 * Descrição
+* Data de cadastro
 
 **Funcionalidades:**
 
-* Criar produto
-* Editar produto
-* Deletar produto
-* Listagem com filtros
+* ✅ Criar/Cadastrar novo produto
+* ✅ Editar informações
+* ✅ Deletar produto
+* ✅ Listagem com paginação
+* ✅ Filtros por categoria
+* ✅ Busca por nome/código
+* ✅ Controle de entrada e saída de estoque
 
 ---
 
-### 👤 Clientes
+### � Clientes
 
-Cadastro e gestão de clientes:
+Cadastro e gestão centralizada de clientes:
 
 **Campos:**
 
-* Nome
+* Nome completo / Razão Social
+* Tipo (PF - Pessoa Física / PJ - Pessoa Jurídica)
 * CPF/CNPJ
+* Email
+* Telefone
 * Cidade
 * Estado
+* Endereço
+* Data de cadastro
 
 **Funcionalidades:**
 
-* Criar cliente
-* Editar cliente
-* Remover cliente
-* Listagem
+* ✅ Criar cliente
+* ✅ Editar informações
+* ✅ Remover cliente
+* ✅ Listagem com filtros
+* ✅ Busca por nome/CPF
+* ✅ Histórico de compras
+* ✅ Relatório de clientes
 
 ---
 
 ### 💰 Vendas
 
-Controle e análise de vendas:
+Sistema completo de controle e análise de vendas:
 
-**Informações:**
+**Informações da Venda:**
 
-* Itens vendidos
-* Valor total das vendas
+* Cliente
+* Produtos (itens, quantidades, preços)
+* Valor total
+* Descontos aplicados
 * Lucro obtido
-* Histórico de vendas
+* Data e hora
+* Forma de pagamento
 
 **Funcionalidades:**
 
-* Registrar venda
-* Visualizar histórico
-* Relatórios financeiros
+* ✅ Registrar nova venda
+* ✅ Visualizar histórico de vendas
+* ✅ Calcular automático de totais
+* ✅ Gerar comprovante/recibo
+* ✅ Relatórios financeiros
+* ✅ Análise por período
+* ✅ Filtros e busca avançada
 
 ---
 
 ## 🎨 Design e UX
 
-* Paleta de cores:
+### Paleta de Cores
 
-  * 🔴 Vermelho
-  * ⚪ Branco
+* 🔴 **Primária**: Vermelho (#DC2626) - Ação principal, atenção
+* ⚪ **Secundária**: Branco (#FFFFFF) - Fundo, clareza
+* ⚫ **Texto**: Cinza Escuro (#1F2937) - Legibilidade
+* 🟢 **Sucesso**: Verde (#10B981) - Confirmação
+* 🟠 **Aviso**: Laranja (#F59E0B) - Atenção
+* 🔴 **Erro**: Vermelho Escuro (#EF4444) - Erro
 
-* Estilo:
+### Estilo Visual
 
-  * Clean e moderno
-  * Interface intuitiva
-  * Layout organizado
+* **Abordagem**: Clean e moderno
+* **Interface**: Intuitiva e amigável
+* **Layout**: Organizado em módulos
+* **Tipografia**: Legível e profissional
+* **Ícones**: Universais e reconhecíveis
 
-* Responsividade:
+### Responsividade
 
-  * Desktop
-  * Tablet
-  * Mobile
+* ✅ **Desktop** (1920px+) - Experiência completa
+* ✅ **Tablet** (768px - 1023px) - Interface adaptada
+* ✅ **Mobile** (320px - 767px) - Touch-friendly
 
 ---
 
-## 🔌 API (Endpoints) 
+## 🔌 API REST (Endpoints)
 
+### Autenticação
+
+```http
+POST   /auth/login            # Login do usuário
+POST   /auth/logout           # Logout
+POST   /auth/register         # Registrar novo usuário
+GET    /auth/me               # Dados do usuário autenticado
+```
 
 ### Produtos
 
-```
-GET    /products
-POST   /products
-PUT    /products/:id
-DELETE /products/:id
+```http
+GET    /products              # Listar todos os produtos
+GET    /products/:id          # Detalhes de um produto
+POST   /products              # Criar novo produto
+PUT    /products/:id          # Atualizar produto
+DELETE /products/:id          # Deletar produto
+GET    /products/category/:cat # Filtrar por categoria
 ```
 
 ### Clientes
 
-```
-GET    /clients
-POST   /clients
-PUT    /clients/:id
-DELETE /clients/:id
+```http
+GET    /clients               # Listar todos os clientes
+GET    /clients/:id           # Detalhes de um cliente
+POST   /clients               # Criar novo cliente
+PUT    /clients/:id           # Atualizar cliente
+DELETE /clients/:id           # Deletar cliente
+GET    /clients/:id/sales     # Histórico de vendas do cliente
 ```
 
 ### Vendas
 
+```http
+GET    /sales                 # Listar todas as vendas
+GET    /sales/:id             # Detalhes de uma venda
+POST   /sales                 # Registrar nova venda
+GET    /sales/report/period   # Relatório por período
+GET    /sales/report/summary  # Resumo financeiro
 ```
-GET    /sales
-POST   /sales
+
+---
+
+## 🏗️ Arquitetura do Sistema
+
+### Padrão de Arquitetura
+
+O projeto utiliza uma **arquitetura em camadas (Layered Architecture)** com separação clara de responsabilidades:
+
 ```
+┌─────────────────────────────────────────┐
+│         Frontend (React + Vite)         │
+│      Interface com usuário (UI/UX)      │
+└────────────────┬────────────────────────┘
+                 │ HTTP/JSON
+┌────────────────▼────────────────────────┐
+│      API REST (FastAPI + Python)        │
+│  Roteamento, Validação, Autenticação    │
+├─────────────────────────────────────────┤
+│      Camada de Negócios (Services)      │
+│  Lógica de regras do negócio            │
+├─────────────────────────────────────────┤
+│      Camada de Dados (Models/ORM)       │
+│  SQLAlchemy, Pydantic, Validações       │
+├─────────────────────────────────────────┤
+│        Banco de Dados (SQLite)          │
+│  Persistência de dados                  │
+└─────────────────────────────────────────┘
+```
+
+### Fluxo de Requisição
+
+```
+1. Usuário interage com interface (React)
+   ↓
+2. Frontend faz requisição HTTP/JSON
+   ↓
+3. FastAPI recebe e valida a requisição
+   ↓
+4. Router encaminha para o endpoint correto
+   ↓
+5. Lógica de negócio é executada
+   ↓
+6. Dados são persistidos/recuperados (SQLAlchemy)
+   ↓
+7. Resposta é formatada (Pydantic)
+   ↓
+8. JSON é enviado de volta ao frontend
+   ↓
+9. Interface atualiza com os dados
+```
+
+---
+
+## 🗄️ Banco de Dados
+
+### Tabelas Principais
+
+#### Users (Usuários)
+- id (PK)
+- username
+- email
+- password_hash
+- created_at
+
+#### Products (Produtos)
+- id (PK)
+- name
+- category
+- quantity
+- cost_price
+- selling_price
+- created_at
+
+#### Clients (Clientes)
+- id (PK)
+- name
+- type (PF/PJ)
+- cpf_cnpj
+- email
+- phone
+- city
+- state
+- created_at
+
+#### Sales (Vendas)
+- id (PK)
+- client_id (FK)
+- total_value
+- profit
+- created_at
+
+#### SaleItems (Itens da Venda)
+- id (PK)
+- sale_id (FK)
+- product_id (FK)
+- quantity
+- unit_price
+- subtotal
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+### Backend
+- **Python 3.8+** - Linguagem principal
+- **FastAPI** - Framework web
+- **SQLAlchemy** - ORM
+- **Pydantic** - Validação
+- **SQLite** - Banco de dados
+
+### Frontend
+- **React 18** - Biblioteca UI
+- **Vite** - Build tool
+- **React Router** - Roteamento
+- **Chart.js** - Gráficos
+- **CSS3** - Estilos
+
+### DevOps
+- **Git** - Controle de versão
+- **npm/yarn** - Gerenciador frontend
+- **pip** - Gerenciador Python
+
+---
 
 ---
 
