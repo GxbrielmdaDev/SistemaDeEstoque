@@ -360,7 +360,7 @@ Este projeto está distribuído sob a licença **MIT**
 **Gabriel Almeida**
 
 - 🐙 GitHub: [@GxbrielmdaDev](https://github.com/GxbrielmdaDev)
-- 💼 LinkedIn: [Gabriel Medeiros](www.linkedin.com/in/gabriellmdadev)
+- 💼 LinkedIn: [Gabriel Almeida](www.linkedin.com/in/gabriellmdadev)
 
 
 ---
