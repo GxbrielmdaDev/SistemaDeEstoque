@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { listClients, createClient, updateClient, deleteClient } from '../services/api'
 import { useTheme } from '../contexts/ThemeContext'
+import CPFCNPJInput from '../components/CPFCNPJInput'
 
 const emptyForm = {
   nome: '',
@@ -97,10 +98,9 @@ export default function Clients() {
           </label>
           <label>
             CPF/CNPJ
-            <input
-              type="text"
+            <CPFCNPJInput
               value={formValues.cpf_cnpj}
-              onChange={(e) => setFormValues({ ...formValues, cpf_cnpj: e.target.value })}
+              onChange={(newValue) => setFormValues({ ...formValues, cpf_cnpj: newValue })}
               required
             />
           </label>
