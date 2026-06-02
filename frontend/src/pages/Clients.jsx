@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { listClients, createClient, updateClient, deleteClient } from '../services/api'
+import { useTheme } from '../contexts/ThemeContext'
 
 const emptyForm = {
   nome: '',
@@ -9,6 +10,7 @@ const emptyForm = {
 }
 
 export default function Clients() {
+  const { isDark } = useTheme()
   const [clients, setClients] = useState([])
   const [formValues, setFormValues] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
@@ -125,7 +127,7 @@ export default function Clients() {
           </button>
         </form>
         {(error || success) && (
-          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? 'rgba(255, 110, 107, 0.1)' : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
+          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? (isDark ? 'rgba(255, 110, 107, 0.1)' : 'rgba(37, 99, 235, 0.1)') : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
             <span style={{ color: success ? 'var(--success-text)' : '' }}>{error || success}</span>
           </div>
         )}

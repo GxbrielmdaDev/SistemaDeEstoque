@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { listProducts, createProduct, updateProduct, deleteProduct, getCategories } from '../services/api'
+import { useTheme } from '../contexts/ThemeContext'
 import CategoryAutocomplete from '../components/CategoryAutocomplete'
 
 const emptyForm = {
@@ -12,6 +13,7 @@ const emptyForm = {
 }
 
 export default function Products() {
+  const { isDark } = useTheme()
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [formValues, setFormValues] = useState(emptyForm)
@@ -167,7 +169,7 @@ export default function Products() {
           </button>
         </form>
         {(error || success) && (
-          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? 'rgba(255, 110, 107, 0.1)' : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
+          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? (isDark ? 'rgba(255, 110, 107, 0.1)' : 'rgba(37, 99, 235, 0.1)') : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
             <span style={{ color: success ? 'var(--success-text)' : '' }}>{error || success}</span>
           </div>
         )}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { listSales, createSale, listProducts, listClients } from '../services/api'
+import { useTheme } from '../contexts/ThemeContext'
 
 const emptyForm = {
   produto_id: '',
@@ -8,6 +9,7 @@ const emptyForm = {
 }
 
 export default function Sales() {
+  const { isDark } = useTheme()
   const [sales, setSales] = useState([])
   const [products, setProducts] = useState([])
   const [clients, setClients] = useState([])
@@ -131,7 +133,7 @@ export default function Sales() {
           </button>
         </form>
         {(error || success) && (
-          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? 'rgba(255, 110, 107, 0.1)' : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
+          <div className="alert" style={{ color: success ? 'var(--success-color)' : '', backgroundColor: success ? (isDark ? 'rgba(255, 110, 107, 0.1)' : 'rgba(37, 99, 235, 0.1)') : '', padding: success ? '12px' : '0', borderRadius: success ? '8px' : '0' }}>
             <span style={{ color: success ? 'var(--success-text)' : '' }}>{error || success}</span>
           </div>
         )}
